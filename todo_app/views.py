@@ -42,8 +42,9 @@ def auth_view(request):
 
             if '@' in username:
                 print("consider this as email")
-
-                user = authenticate(request, email=email, password=password)
+                user = User.objects.get(email=username)
+                print(user.username)
+                user = authenticate(request, username=user.username, password=password)
                 print("authenticated")
                 login(request, user)
                 return redirect('home')
